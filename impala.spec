@@ -95,7 +95,7 @@ impala state-store daemon script
 %{__cp} -p %{_topdir}/default/impala %{buildroot}/etc/default/
 
 %{__install} -d %{buildroot}/etc/rc.d/init.d/
-%{__cp} -rp %{_topdir}/init.d/* %{buildroot}/rc.d/init.d/
+%{__cp} -rp %{_topdir}/init.d/* %{buildroot}/etc/rc.d/init.d/
 
 %{__cp} -p be/build/latest/service/impalad %{buildroot}/usr/bin
 cd %{buildroot}/usr/bin/ && ln -s impalad catalogd
