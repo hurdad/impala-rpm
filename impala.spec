@@ -119,11 +119,12 @@ fi
 
 %files
 %defattr(-,root,root,-)
-/etc/default/
+/etc/security/limits.d/impala.conf
+/etc/default/impala
 /etc/impala/conf.dist/
-/usr/bin
-/usr/lib/impala
-/var/lib/impala
+/usr/bin/*
+/usr/lib/impala/
+/var/lib/impala/
 
 %defattr(-,impala,impala,-)
 /var/log/impala
@@ -143,7 +144,7 @@ fi
 
 %files state-store
 %defattr(-,root,root,-)
-/etc/rc.d/init.d/impala-server
+/etc/rc.d/init.d/impala-state-store
 
 %changelog
 * Sat Dec 3 2016 Alexander Hurd <hurdad@gmail.com> 1.0.1-1
