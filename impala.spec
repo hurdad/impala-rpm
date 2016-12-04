@@ -19,6 +19,8 @@ BuildRequires: python-devel
 BuildRequires: cyrus-sasl-devel
 BuildRequires: openssl-devel
 BuildRequires: vim-common
+Requires: java-1.7.0-openjdk
+Requires: bigtop-utils >= 0.7
 
 AutoReqProv: no
 
@@ -64,7 +66,7 @@ impala state-store daemon script
 %{__rm} -rf %{buildroot}
 
 %{__install} -d %{buildroot}
-%{__install} -d %{buildroot}/etc/impala/conf.dist
+%{__install} -d %{buildroot}/etc/impala/conf
 %{__install} -d %{buildroot}/usr/bin
 %{__install} -d %{buildroot}/usr/lib/impala
 %{__install} -d %{buildroot}/var/lib/impala
@@ -73,12 +75,12 @@ impala state-store daemon script
 
 %{__install} -d %{buildroot}/usr/lib/impala/lib
 %{__cp} -rp fe/target/dependency/* %{buildroot}/usr/lib/impala/lib/
+%{__cp} -p fe/target/impala-frontend-0.1-SNAPSHOT.jar %{buildroot}/usr/lib/impala/lib/
 %{__cp} -rp www %{buildroot}/usr/lib/impala/
 
 %{__install} -d %{buildroot}/usr/lib/impala/toolchain
 %{__cp} -rp toolchain/gcc-4.9.2 %{buildroot}/usr/lib/impala/toolchain
 %{__cp} -rp toolchain/kudu-0.8.0-RC1 %{buildroot}/usr/lib/impala/toolchain
-
 
 %{__install} -d %{buildroot}/usr/lib/impala-shell
 %{__cp} -rp shell/build/impala-shell-%{version}/ext-py %{buildroot}/usr/lib/impala-shell
@@ -86,7 +88,7 @@ impala state-store daemon script
 %{__cp} -rp shell/build/impala-shell-%{version}/lib %{buildroot}/usr/lib/impala-shell
 %{__cp} -r shell/build/impala-shell-%{version}/impala_shell.py %{buildroot}/usr/lib/impala-shell
 %{__cp} -r shell/build/impala-shell-%{version}/impala-shell %{buildroot}/usr/bin/
-
+sed -i -e 's/SCRIPT_DIR=.*$/SCRIPT_DIR=\/usr\/lib\/impala-shell/g' %{buildroot}/usr/bin/impala-shell
 
 %{__install} -d %{buildroot}/etc/security/limits.d
 %{__cp} -rp %{_topdir}/limits.d/impala.conf %{buildroot}/etc/security/limits.d/
@@ -96,6 +98,7 @@ impala state-store daemon script
 
 %{__install} -d %{buildroot}/etc/rc.d/init.d/
 %{__cp} -rp %{_topdir}/init.d/* %{buildroot}/etc/rc.d/init.d/
+%{__chmod} +x %{buildroot}/etc/rc.d/init.d/*
 
 %{__cp} -p be/build/latest/service/impalad %{buildroot}/usr/bin
 cd %{buildroot}/usr/bin/ && ln -s impalad catalogd
@@ -122,7 +125,9 @@ fi
 /etc/security/limits.d/impala.conf
 /etc/default/impala
 /etc/impala/conf.dist/
-/usr/bin/*
+/usr/bin/catalogd
+/usr/bin/impalad
+/usr/bin/statestored
 /usr/lib/impala/
 /var/lib/impala/
 
@@ -131,6 +136,7 @@ fi
 /var/run/impala
 
 %files shell
+%defattr(-,root,root,-)
 /usr/bin/impala-shell
 /usr/lib/impala-shell
 
