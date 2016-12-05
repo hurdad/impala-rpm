@@ -19,7 +19,6 @@ BuildRequires: python-devel
 BuildRequires: cyrus-sasl-devel
 BuildRequires: openssl-devel
 BuildRequires: vim-common
-Requires: java-1.7.0-openjdk
 Requires: bigtop-utils >= 0.7
 
 AutoReqProv: no
@@ -60,7 +59,7 @@ impala state-store daemon script
 %setup -q
 
 %build
-./buildall.sh -notests
+./buildall.sh -notests -release
 
 %install
 %{__rm} -rf %{buildroot}
@@ -98,7 +97,9 @@ sed -i -e 's/SCRIPT_DIR=.*$/SCRIPT_DIR=\/usr\/lib\/impala-shell/g' %{buildroot}/
 
 %{__install} -d %{buildroot}/etc/rc.d/init.d/
 %{__cp} -rp %{_topdir}/init.d/* %{buildroot}/etc/rc.d/init.d/
-%{__chmod} +x %{buildroot}/etc/rc.d/init.d/*
+%{__chmod} +755 %{buildroot}/etc/rc.d/init.d/*
+
+systemctl daemon-reload
 
 %{__cp} -p be/build/latest/service/impalad %{buildroot}/usr/bin
 cd %{buildroot}/usr/bin/ && ln -s impalad catalogd
@@ -110,9 +111,13 @@ if ! /usr/bin/id impala &>/dev/null; then
         %logmsg "Unexpected error adding user \"impala\". Aborting installation."
 fi
 
+%post
+systemctl daemon-reload
+
 %preun
 
 %postun
+systemctl daemon-reload
 if [ $1 -eq 0 ]; then
     /usr/sbin/userdel impala || %logmsg "User \"impala\" could not be deleted."
 fi
@@ -124,14 +129,14 @@ fi
 %defattr(-,root,root,-)
 /etc/security/limits.d/impala.conf
 /etc/default/impala
-/etc/impala/conf.dist/
+/etc/impala/conf
 /usr/bin/catalogd
 /usr/bin/impalad
 /usr/bin/statestored
-/usr/lib/impala/
-/var/lib/impala/
+/usr/lib/impala
 
 %defattr(-,impala,impala,-)
+/var/lib/impala
 /var/log/impala
 /var/run/impala
 
