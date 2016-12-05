@@ -99,8 +99,6 @@ sed -i -e 's/SCRIPT_DIR=.*$/SCRIPT_DIR=\/usr\/lib\/impala-shell/g' %{buildroot}/
 %{__cp} -rp %{_topdir}/init.d/* %{buildroot}/etc/rc.d/init.d/
 %{__chmod} +755 %{buildroot}/etc/rc.d/init.d/*
 
-systemctl daemon-reload
-
 %{__cp} -p be/build/latest/service/impalad %{buildroot}/usr/bin
 cd %{buildroot}/usr/bin/ && ln -s impalad catalogd
 cd %{buildroot}/usr/bin/ && ln -s impalad statestored
