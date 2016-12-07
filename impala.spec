@@ -2,7 +2,7 @@
 %define __jar_repack %{nil}
 
 Name:       incubator-impala
-Version:    2.7.0
+Version:    %{VERSION}
 Release:    1%{?dist}
 Summary:    massively parallel processing query engine
 Group:      Applications/Internet
