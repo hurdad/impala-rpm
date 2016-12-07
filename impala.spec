@@ -93,20 +93,26 @@ sed -i -e 's/SCRIPT_DIR=.*$/SCRIPT_DIR=\/usr\/lib\/impala-shell/g' %{buildroot}/
 %{__cp} -rp %{_topdir}/limits.d/impala.conf %{buildroot}/etc/security/limits.d/
 
 %{__install} -d %{buildroot}/etc/default
-%{__cp} -p %{_topdir}/default/impala %{buildroot}/etc/default/
+%{__cp} -p %{_topdir}/default/* %{buildroot}/etc/default/
 
 %{__install} -d %{buildroot}/etc/rc.d/init.d/
 %{__cp} -rp %{_topdir}/init.d/* %{buildroot}/etc/rc.d/init.d/
 %{__chmod} +755 %{buildroot}/etc/rc.d/init.d/*
 
-%{__cp} -p be/build/latest/service/impalad %{buildroot}/usr/bin
-cd %{buildroot}/usr/bin/ && ln -s impalad catalogd
-cd %{buildroot}/usr/bin/ && ln -s impalad statestored
+%{__cp} -rp %{_topdir}/bin/* %{buildroot}/usr/bin
+%{__chmod} +755 %{buildroot}/usr/bin/*
+
+%{__install} -d %{buildroot}/usr/lib/impala/sbin
+%{__cp} -p be/build/latest/service/libfesupport.so %{buildroot}/usr/lib/impala/sbin
+%{__cp} -p be/build/latest/service/impalad %{buildroot}/usr/lib/impala/sbin
+cd %{buildroot}/usr/lib/impala/sbin && ln -s impalad catalogd
+cd %{buildroot}/usr/lib/impala/sbin && ln -s impalad statestored
 
 %pre
 if ! /usr/bin/id impala &>/dev/null; then
     /usr/sbin/useradd -r -d /var/lib/impala -s /bin/sh -c "impala" impala || \
         %logmsg "Unexpected error adding user \"impala\". Aborting installation."
+    /sbin/usermod -a -G hadoop impala
 fi
 
 %post
@@ -126,7 +132,7 @@ fi
 %files
 %defattr(-,root,root,-)
 /etc/security/limits.d/impala.conf
-/etc/default/impala
+/etc/default
 /etc/impala/conf
 /usr/bin/catalogd
 /usr/bin/impalad
