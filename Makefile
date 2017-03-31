@@ -1,6 +1,6 @@
 # Impala
 SHELL := /bin/bash 
-version = 2.7.0
+version = 2.8.0
 name = incubator-impala
 full_name = $(name)-$(version)
 download_url = "https://github.com/apache/$(name)/archive/$(version).tar.gz"

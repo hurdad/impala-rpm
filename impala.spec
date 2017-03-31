@@ -79,14 +79,14 @@ impala state-store daemon script
 
 %{__install} -d %{buildroot}/usr/lib/impala/toolchain
 %{__cp} -rp toolchain/gcc-4.9.2 %{buildroot}/usr/lib/impala/toolchain
-%{__cp} -rp toolchain/kudu-0.8.0-RC1 %{buildroot}/usr/lib/impala/toolchain
+# %{__cp} -rp toolchain/kudu-0.8.0-RC1 %{buildroot}/usr/lib/impala/toolchain
 
 %{__install} -d %{buildroot}/usr/lib/impala-shell
-%{__cp} -rp shell/build/impala-shell-%{version}/ext-py %{buildroot}/usr/lib/impala-shell
-%{__cp} -rp shell/build/impala-shell-%{version}/gen-py %{buildroot}/usr/lib/impala-shell
-%{__cp} -rp shell/build/impala-shell-%{version}/lib %{buildroot}/usr/lib/impala-shell
-%{__cp} -r shell/build/impala-shell-%{version}/impala_shell.py %{buildroot}/usr/lib/impala-shell
-%{__cp} -r shell/build/impala-shell-%{version}/impala-shell %{buildroot}/usr/bin/
+%{__cp} -rp shell/build/impala-shell-%{version}-RELEASE/ext-py %{buildroot}/usr/lib/impala-shell
+%{__cp} -rp shell/build/impala-shell-%{version}-RELEASE/gen-py %{buildroot}/usr/lib/impala-shell
+%{__cp} -rp shell/build/impala-shell-%{version}-RELEASE/lib %{buildroot}/usr/lib/impala-shell
+%{__cp} -r shell/build/impala-shell-%{version}-RELEASE/impala_shell.py %{buildroot}/usr/lib/impala-shell
+%{__cp} -r shell/build/impala-shell-%{version}-RELEASE/impala-shell %{buildroot}/usr/bin/
 sed -i -e 's/SCRIPT_DIR=.*$/SCRIPT_DIR=\/usr\/lib\/impala-shell/g' %{buildroot}/usr/bin/impala-shell
 
 %{__install} -d %{buildroot}/etc/security/limits.d
