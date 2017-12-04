@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 %define __jar_repack %{nil}
 
-Name:       incubator-impala
+Name:       impala
 Version:    %{VERSION}
 Release:    1%{?dist}
 Summary:    massively parallel processing query engine
