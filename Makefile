@@ -1,9 +1,9 @@
 # Impala
 SHELL := /bin/bash 
-version = 2.10.0
-name = impala
+version = 4.0.0
+name = apache-impala
 full_name = $(name)-$(version)
-download_url = "https://github.com/apache/$(name)/archive/$(version).tar.gz"
+download_url = "https://dlcdn.apache.org/impala/4.0.0/apache-impala-4.0.0.tar.gz"
 
 all: rpm
 
