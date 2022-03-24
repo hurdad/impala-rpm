@@ -1,10 +1,10 @@
 # impala-rpm
 
-Tested on CentOS 7 and Hortonworks 2.4 (Hadoop)
+Tested on CentOS 7
 
 ### Install Dependancies :
 ```
-yum install java-1.7.0-openjdk-devel python-setuptools doxygen redhat-lsb gcc-c++ python-devel cyrus-sasl-devel openssl-devel vim-common wget curl rpm-build maven git make
+yum install java-1.8.0-openjdk-devel python-setuptools doxygen redhat-lsb gcc-c++ python-devel cyrus-sasl-devel openssl-devel vim-common wget curl rpm-build maven git make
 ```
 
 ### Set JAVA_HOME :
