@@ -37,8 +37,8 @@ done
 
 export CLASSPATH
 
-KUDU_LIB_DIR=/usr/lib/impala/toolchain/kudu-0.8.0-RC1/release/lib64
-GCC_LIB_DIR=/usr/lib/impala/toolchain/gcc-4.9.2/lib64
-HADOOP_NATIVE_LIB_DIR=/usr/hdp/2.4.3.0-227/hadoop/lib/native
+KUDU_LIB_DIR=/usr/lib/impala/toolchain/release/lib64/
+GCC_LIB_DIR=/usr/lib/impala/toolchain/gcc-10.4.0/lib64
+#HADOOP_NATIVE_LIB_DIR=/usr/hdp/2.4.3.0-227/hadoop/lib/native
 
-export LD_LIBRARY_PATH=${KUDU_LIB_DIR}:${GCC_LIB_DIR}:${HADOOP_NATIVE_LIB_DIR}:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=${KUDU_LIB_DIR}:${GCC_LIB_DIR}:$LD_LIBRARY_PATH

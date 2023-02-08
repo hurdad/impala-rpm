@@ -77,15 +77,16 @@ impala state-store daemon script
 
 %{__install} -d %{buildroot}/usr/lib/impala/lib
 %{__cp} -rp fe/target/dependency/* %{buildroot}/usr/lib/impala/lib/
-%{__cp} -p fe/target/impala-frontend-4.0.0-SNAPSHOT.jar %{buildroot}/usr/lib/impala/lib/
+%{__cp} -p fe/target/impala-frontend-%{version}-RELEASE.jar %{buildroot}/usr/lib/impala/lib/
 %{__cp} -rp www %{buildroot}/usr/lib/impala/
 
 %{__install} -d %{buildroot}/usr/lib/impala/toolchain
-%{__cp} -rp toolchain/toolchain-packages-gcc7.5.0/gcc-7.5.0 %{buildroot}/usr/lib/impala/toolchain
-# %{__cp} -rp toolchain/kudu-0.8.0-RC1 %{buildroot}/usr/lib/impala/toolchain
+%{__cp} -rp toolchain/toolchain-packages-gcc10.4.0/gcc-10.4.0 %{buildroot}/usr/lib/impala/toolchain
+%{__cp} -rp toolchain/toolchain-packages-gcc10.4.0/kudu-956093dd9d/release %{buildroot}/usr/lib/impala/toolchain
 
 %{__install} -d %{buildroot}/usr/lib/impala-shell
-%{__cp} -rp shell/build/impala-shell-%{version}-RELEASE/ext-py %{buildroot}/usr/lib/impala-shell
+%{__cp} -rp shell/build/impala-shell-%{version}-RELEASE/ext-py2 %{buildroot}/usr/lib/impala-shell
+%{__cp} -rp shell/build/impala-shell-%{version}-RELEASE/ext-py3 %{buildroot}/usr/lib/impala-shell
 %{__cp} -rp shell/build/impala-shell-%{version}-RELEASE/gen-py %{buildroot}/usr/lib/impala-shell
 %{__cp} -rp shell/build/impala-shell-%{version}-RELEASE/lib %{buildroot}/usr/lib/impala-shell
 %{__cp} -r shell/build/impala-shell-%{version}-RELEASE/impala_shell.py %{buildroot}/usr/lib/impala-shell
